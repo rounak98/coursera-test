@@ -1,0 +1,125 @@
+
+
+
+
+
+
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    public static void main(String args[] ) throws Exception {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+        Scanner sc=new Scanner(System.in);
+        int d,p;
+        String t,f;
+        ArrayList<Document>document=new ArrayList<Document>();
+
+        for(int i=0;i<4;i++)
+        {
+            d=sc.nextInt();
+            t=sc.next();
+            f=sc.next();
+            p=sc.nextInt();
+
+            document.add(new Document(d,t,f,p));
+        }
+
+        ArrayList<Document>ans=docsWithOddPages(document);
+
+        for(int i=0;i<ans.size()-1;i++)
+        {
+            for(int j=0;j<ans.size()-1-i;j++)
+            {
+                if(ans.get(j).getId()>ans.get(j+1).getId())
+                {
+                    Document docs=ans.get(j);
+                    ans.set(j, ans.get(j+1));
+                    ans.set(j+1, docs);
+                }
+            }
+        }
+
+        for(int i=0;i<ans.size();i++)
+        {
+            System.out.println(ans.get(i).getId()+" "+ans.get(i).getTitle()+" "+ans.get(i).getFolderName()+" "+ans.get(i).getPages());
+        }
+    }
+
+    public static ArrayList<Document>docsWithOddPages(ArrayList<Document>document)
+    {
+        ArrayList<Document>t=new ArrayList<Document>();
+
+        for(int i=0;i<4;i++)
+        {
+            if(document.get(i).getPages()%2!=0)
+            {
+                t.add(document.get(i));
+            }
+        }
+        return t;
+    }
+}
+
+class Document
+{
+    private int id;
+    private String title;
+    private String folderName;
+    private int pages;
+
+    Document(int id, String title, String folderName, int pages)
+    {
+        this.id=id;
+        this.title=title;
+        this.folderName=folderName;
+        this.pages=pages;
+    }
+
+    public int getId()
+    {
+        return this.id;
+    }
+
+    public void setId(int id)
+    {
+        this.id=id;
+    }
+
+    public String getTitle()
+    {
+        return this.title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title=title;
+    }
+
+    public String getFolderName()
+    {
+        return this.folderName=folderName;
+    }
+
+    public void setFolderName(String folderName)
+    {
+        this.folderName=folderName;
+    }
+
+    public int getPages()
+    {
+        return this.pages=pages;
+    }
+
+    public void setPages(int pages)
+    {
+        this.pages=pages;
+    }
+}
+
+
+
